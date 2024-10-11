@@ -42,7 +42,7 @@ public class UserController {
         http://localhost:8080/users/get-all-paging?pageNumber=0&pageSize=10&sort=id&direction=desc
     */
 
-    @RequestMapping(value = "/get-all-paging", method = RequestMethod.GET)
+    @RequestMapping(value = "/all", method = RequestMethod.GET)
     public Page<UserEntity> getUsersWithPagination(
             @RequestParam int pageNumber,
             @RequestParam int pageSize,
@@ -56,5 +56,17 @@ public class UserController {
     }
 
     /*Search with params*/
+    @RequestMapping(value = "search-user", method = RequestMethod.GET)
+    public Page<UserEntity> searchUser(@RequestParam String name,
+                                       @RequestParam int pageNumber,
+                                       @RequestParam int pageSize,
+                                       @RequestParam(defaultValue = "id") String sort,
+                                       @RequestParam(defaultValue = "desc") String direction) {
+        Sort.Direction sortDirection = direction.equals("asc") ? Sort.Direction.ASC : Sort.Direction.DESC;
+        Sort sortBy = Sort.by(sortDirection, sort);
+        Pageable p = PageRequest.of(pageNumber, pageSize, sortBy);
+        return userService.find_by_username_pageable(name, p);
+    }
+
 
 }

@@ -41,8 +41,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Page<UserEntity> find_by_username_pageable(String email, Pageable p) {
-        return userRepository.findByUserName(email, p);
+    public Page<UserEntity> find_by_username_pageable(String user_name, Pageable p) {
+        return userRepository.findByUserNameLikeJPQL(user_name, p);
     }
 
     @Override
