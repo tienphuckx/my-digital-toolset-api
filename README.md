@@ -1,2 +1,2 @@
 # my-digital-toolset-api
-My custom digital easy toolset - api
+Backbone API for a group of digital toolset
