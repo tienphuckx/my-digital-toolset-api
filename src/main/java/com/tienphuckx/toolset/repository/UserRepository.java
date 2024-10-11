@@ -54,4 +54,13 @@ public interface UserRepository extends JpaRepository<UserEntity, Long> {
     @Query(value = "SELECT * FROM tbl_user u WHERE u.user_name LIKE %:userName%", nativeQuery = true)
     Page<UserEntity> findByUserNameLikeNative(@Param("userName") String userName, Pageable pageable);
 
+    // JPQL query to search for users based on optional parameters
+    @Query("SELECT u FROM UserEntity u WHERE " +
+            "(:userName IS NULL OR u.userName LIKE %:userName%) AND " +
+            "(:userEmail IS NULL OR u.userEmail LIKE %:userEmail%) AND " +
+            "(:userPhone IS NULL OR u.userPhone LIKE %:userPhone%)")
+    Page<UserEntity> searchUsers(@Param("userName") String userName,
+                                 @Param("userEmail") String userEmail,
+                                 @Param("userPhone") String userPhone,
+                                 Pageable pageable);
 }

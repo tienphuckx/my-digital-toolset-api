@@ -19,4 +19,6 @@ public interface UserService {
     /*Pageable*/
     Page<UserEntity> find_by_username_pageable(String email, Pageable p);
     Page<UserEntity> find_all(Pageable p);
+
+    Page<UserEntity> searchUsers(String name, String email, String phone, Pageable pageable);
 }

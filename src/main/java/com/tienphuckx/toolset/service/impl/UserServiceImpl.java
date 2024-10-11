@@ -49,4 +49,8 @@ public class UserServiceImpl implements UserService {
     public Page<UserEntity> find_all(Pageable p) {
         return userRepository.findAll(p);
     }
+
+    public Page<UserEntity> searchUsers(String name, String email, String phone, Pageable pageable) {
+        return userRepository.searchUsers(name, email, phone, pageable);
+    }
 }

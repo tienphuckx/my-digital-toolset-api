@@ -56,7 +56,7 @@ public class UserController {
     }
 
     /*Search with params*/
-    @RequestMapping(value = "search-user", method = RequestMethod.GET)
+    @RequestMapping(value = "search-user-name", method = RequestMethod.GET)
     public Page<UserEntity> searchUser(@RequestParam String name,
                                        @RequestParam int pageNumber,
                                        @RequestParam int pageSize,
@@ -68,5 +68,24 @@ public class UserController {
         return userService.find_by_username_pageable(name, p);
     }
 
+    @RequestMapping(value = "/search-user", method = RequestMethod.GET)
+    public Page<UserEntity> searchUser(
+            @RequestParam(required = false) String name,
+            @RequestParam(required = false) String email,
+            @RequestParam(required = false) String phone,
+            @RequestParam(defaultValue = "0") int pageNumber,
+            @RequestParam(defaultValue = "10") int pageSize,
+            @RequestParam(defaultValue = "id") String sort,
+            @RequestParam(defaultValue = "desc") String direction) {
 
+        // Determine sort direction
+        Sort.Direction sortDirection = direction.equalsIgnoreCase("asc") ? Sort.Direction.ASC : Sort.Direction.DESC;
+        Sort sortBy = Sort.by(sortDirection, sort);
+
+        // Create pageable object
+        Pageable pageable = PageRequest.of(pageNumber, pageSize, sortBy);
+
+        // Call service to search users based on optional params
+        return userService.searchUsers(name, email, phone, pageable);
+    }
 }
