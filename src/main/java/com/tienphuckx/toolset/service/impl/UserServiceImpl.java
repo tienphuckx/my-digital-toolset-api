@@ -4,6 +4,8 @@ import com.tienphuckx.toolset.entity.user.UserEntity;
 import com.tienphuckx.toolset.repository.UserRepository;
 import com.tienphuckx.toolset.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -36,5 +38,15 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<UserEntity> getAllUserEntityDesc() {
         return userRepository.findAllByOrderByIdDesc();
+    }
+
+    @Override
+    public Page<UserEntity> find_by_username_pageable(String email, Pageable p) {
+        return userRepository.findByUserName(email, p);
+    }
+
+    @Override
+    public Page<UserEntity> find_all(Pageable p) {
+        return userRepository.findAll(p);
     }
 }

@@ -43,8 +43,8 @@ public interface UserRepository extends JpaRepository<UserEntity, Long> {
 
 
     /* Pagedable */
-    Page<UserEntity> get_users_by_username_with_page(String userName, Pageable pageable);
-    Page<UserEntity> get_all_with_page(Pageable pageable);
+    Page<UserEntity> findByUserName(String userName, Pageable pageable);
+    Page<UserEntity> findAll(Pageable pageable);
 
 
 }
