@@ -1,24 +1,24 @@
 package com.tienphuckx.toolset.service;
 
-import com.tienphuckx.toolset.entity.user.UserEntity;
-import com.tienphuckx.toolset.repository.UserRepository;
+import com.tienphuckx.toolset.entity.user.User;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 public interface UserService {
-    UserEntity getUserByUsername(String username);
-    UserEntity getUserByEmail(String email);
-    List<UserEntity> getUsers();
+    User getUserByUsername(String username);
+    User getUserByEmail(String email);
+    List<User> getUsers();
 
-    List<UserEntity> getAllUserEntityDesc();
+    List<User> getAllUserEntityDesc();
 
 
     /*Pageable*/
-    Page<UserEntity> find_by_username_pageable(String email, Pageable p);
-    Page<UserEntity> find_all(Pageable p);
+    Page<User> find_by_username_pageable(String email, Pageable p);
+    Page<User> find_all(Pageable p);
 
-    Page<UserEntity> searchUsers(String name, String email, String phone, Pageable pageable);
+    Page<User> searchUsers(String name, String email, String phone, Pageable pageable);
+
+    User insert_user(User user);
 }

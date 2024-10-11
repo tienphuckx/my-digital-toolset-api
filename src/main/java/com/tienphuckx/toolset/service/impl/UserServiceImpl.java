@@ -1,6 +1,6 @@
 package com.tienphuckx.toolset.service.impl;
 
-import com.tienphuckx.toolset.entity.user.UserEntity;
+import com.tienphuckx.toolset.entity.user.User;
 import com.tienphuckx.toolset.repository.UserRepository;
 import com.tienphuckx.toolset.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,36 +21,41 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserEntity getUserByUsername(String userName) {
+    public User getUserByUsername(String userName) {
         return userRepository.findByUserName(userName);
     }
 
     @Override
-    public UserEntity getUserByEmail(String email) {
+    public User getUserByEmail(String email) {
         return userRepository.findByUserEmail(email);
     }
 
     @Override
-    public List<UserEntity> getUsers() {
+    public List<User> getUsers() {
         return userRepository.findAllByOrderByIdDesc();
     }
 
     @Override
-    public List<UserEntity> getAllUserEntityDesc() {
+    public List<User> getAllUserEntityDesc() {
         return userRepository.findAllByOrderByIdDesc();
     }
 
     @Override
-    public Page<UserEntity> find_by_username_pageable(String user_name, Pageable p) {
+    public Page<User> find_by_username_pageable(String user_name, Pageable p) {
         return userRepository.findByUserNameLikeJPQL(user_name, p);
     }
 
     @Override
-    public Page<UserEntity> find_all(Pageable p) {
+    public Page<User> find_all(Pageable p) {
         return userRepository.findAll(p);
     }
 
-    public Page<UserEntity> searchUsers(String name, String email, String phone, Pageable pageable) {
+    public Page<User> searchUsers(String name, String email, String phone, Pageable pageable) {
         return userRepository.searchUsers(name, email, phone, pageable);
+    }
+
+    @Override
+    public User insert_user(User user) {
+        return userRepository.save(user);
     }
 }

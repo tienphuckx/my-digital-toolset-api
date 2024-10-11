@@ -1,13 +1,11 @@
-package com.tienphuckx.toolset.controller;
+package com.tienphuckx.toolset.controller.user;
 
-import com.tienphuckx.toolset.entity.user.UserEntity;
+import com.tienphuckx.toolset.entity.user.User;
 import com.tienphuckx.toolset.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
-import org.springframework.data.repository.query.Param;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -31,8 +29,8 @@ public class UserController {
 
     /*Get all without paging*/
     @RequestMapping(value = "/list", method = RequestMethod.GET)
-    public List<UserEntity> getUserPage() {
-        List<UserEntity> allUsers;
+    public List<User> getUserPage() {
+        List<User> allUsers;
         allUsers = userService.getAllUserEntityDesc();
         return allUsers;
     }
@@ -43,7 +41,7 @@ public class UserController {
     */
 
     @RequestMapping(value = "/all", method = RequestMethod.GET)
-    public Page<UserEntity> getUsersWithPagination(
+    public Page<User> getUsersWithPagination(
             @RequestParam int pageNumber,
             @RequestParam int pageSize,
             @RequestParam(defaultValue = "id") String sort,
@@ -57,11 +55,11 @@ public class UserController {
 
     /*Search with params*/
     @RequestMapping(value = "search-user-name", method = RequestMethod.GET)
-    public Page<UserEntity> searchUser(@RequestParam String name,
-                                       @RequestParam int pageNumber,
-                                       @RequestParam int pageSize,
-                                       @RequestParam(defaultValue = "id") String sort,
-                                       @RequestParam(defaultValue = "desc") String direction) {
+    public Page<User> searchUser(@RequestParam String name,
+                                 @RequestParam int pageNumber,
+                                 @RequestParam int pageSize,
+                                 @RequestParam(defaultValue = "id") String sort,
+                                 @RequestParam(defaultValue = "desc") String direction) {
         Sort.Direction sortDirection = direction.equals("asc") ? Sort.Direction.ASC : Sort.Direction.DESC;
         Sort sortBy = Sort.by(sortDirection, sort);
         Pageable p = PageRequest.of(pageNumber, pageSize, sortBy);
@@ -69,7 +67,7 @@ public class UserController {
     }
 
     @RequestMapping(value = "/search-user", method = RequestMethod.GET)
-    public Page<UserEntity> searchUser(
+    public Page<User> searchUser(
             @RequestParam(required = false) String name,
             @RequestParam(required = false) String email,
             @RequestParam(required = false) String phone,
