@@ -7,7 +7,7 @@ import org.springframework.data.domain.Pageable;
 import java.util.List;
 
 public interface UserService {
-    User getUserByUsername(String username);
+    org.springframework.security.core.userdetails.User getUserByUsername(String username);
     User getUserByEmail(String email);
     List<User> getUsers();
 
